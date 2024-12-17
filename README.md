@@ -17,3 +17,6 @@ x86_64
 aarch64
 ```
 说明你是arm64架构用户，你可以直接查看：[Linux 初步设置（arm64）](Linux_arm64.md)
+## 3. 开发环境配置
+   [Linux 开发环境配置](Linux_development.md#3-开发环境配置)
+
