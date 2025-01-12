@@ -27,23 +27,8 @@ sudo dpkg -i 文件名.deb
 即可安装软件。
 
 ### 2.2 手动安装
-#### 2.2.1 微信Linux原生版本
-复制以下命令到终端运行：
-```shell
-# 下载铜豌豆软件源
-sudo wget -c -O atzlinux-v11-archive-keyring_lastest_all.deb https://www.atzlinux.com/atzlinux/pool/main/a/atzlinux-archive-keyring/atzlinux-v12-archive-keyring_lastest_all.deb
 
-# 安装铜豌豆软件源
-sudo apt -y install ./atzlinux-v11-archive-keyring_lastest_all.deb
-
-# 使用终端命令行安装微信原生版本
-sudo apt update
-sudo cp /etc/lsb-release /etc/lsb-release.Ubuntu
-sudo apt -y install electronic-wechat-icons-atzlinux
-sudo apt -y install com.tencent.wechat
-sudo cp /etc/lsb-release /etc/lsb-release.wechat
-```
-#### 2.2.2 Clash for Windows Linux版
+#### Clash for Windows Linux版
 - 确定你的电脑架构是x86_64，然后运行以下命令下载软件包：
 ```shell
 wget https://github.com/clashdownload/Clash_for_Windows/releases/download/0.20.39/Clash.for.Windows-0.20.39-x64-linux.tar.gz
@@ -58,7 +43,7 @@ wget https://github.com/clashdownload/Clash_for_Windows/releases/download/0.20.3
 - Socks主机(s)`127.0.0.1` `7890`
 到浏览器测试YouTube，看看是否可以打开: https://www.youtube.com/
 
-#### 2.2.3 搜狗输入法
+#### 搜狗输入法
 1. 更新源
    在终端执行 `sudo apt update`
 2. 安装fcitx输入法框架
@@ -82,33 +67,3 @@ wget https://github.com/clashdownload/Clash_for_Windows/releases/download/0.20.3
    2. 查看右上角，可以看到“搜狗”字样，在输入窗口即可调出搜狗输入法。
    3. 如果没有“搜狗”字样，选择配置，将搜狗加入输入法列表即可。
 ---
-# 3.安装驱动
-## 3.1 NVIDIA显卡驱动
-输入以下命令查看驱动支持的最大CUDA版本。
-```shell
-nvidia-smi
-```
-这里是12.4(CUDA Version)
-```shell
-+-----------------------------------------------------------------------------------------+
-| NVIDIA-SMI 550.120                Driver Version: 550.120        CUDA Version: 12.4     |
-|-----------------------------------------+------------------------+----------------------+
-| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
-|                                         |                        |               MIG M. |
-|=========================================+========================+======================|
-|   0  NVIDIA GeForce RTX 3060 ...    Off |   00000000:01:00.0  On |                  N/A |
-| N/A   47C    P8             12W /  115W |      58MiB /   6144MiB |     39%      Default |
-|                                         |                        |                  N/A |
-+-----------------------------------------+------------------------+----------------------+
-                                                                                         
-+-----------------------------------------------------------------------------------------+
-| Processes:                                                                              |
-|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
-|        ID   ID                                                               Usage      |
-|=========================================================================================|
-|    0   N/A  N/A      1753      G   /usr/lib/xorg/Xorg                             53MiB |
-+-----------------------------------------------------------------------------------------+
-```
-
-
