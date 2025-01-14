@@ -14,10 +14,6 @@ echo $ROS_DISTRO
 若返回值为`foxy` `humble` `jazzy`等则安装成功
 
 ## 2.安装ROS开发必要的工具
-mrpt2
-```shell
-sudo apt install ros-$ROS_DISTRO-mrpt2 -y
-```
 transformers3d
 ```shell    
 sudo apt install ros-$ROS_DISTRO-tf-transformations
@@ -66,6 +62,11 @@ sudo apt install ros-$ROS_DISTRO-gazebo-ros2-control
 moveit2相关组件
 ```shell
 sudo apt-get install ros-$ROS_DISTRO-moveit
+```
+
+一键安装全部：
+```shell
+sudo apt install ros-$ROS_DISTRO-tf-transformations ros-$ROS_DISTRO-rqt-* ros-$ROS_DISTRO-robot-state-publisher ros-$ROS_DISTRO-joint-state-publisher ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-gazebo-* ros-$ROS_DISTRO-ros2-control ros-$ROS_DISTRO-ros2-controllers ros-$ROS_DISTRO-gazebo-ros2-control ros-$ROS_DISTRO-moveit -y
 ```
 ## 3.ROS2常用命令
 
@@ -200,3 +201,10 @@ ros2 launch package_name launch_file_name
     ```bash
     ros2 control switch_controllers -h
     ```
+
+## moveit2
+启动moveit2 assistant
+```shell
+ros2 run moveit_setup_assistant moveit_setup_assistant
+```
+
