@@ -207,4 +207,3 @@ ros2 launch package_name launch_file_name
 ```shell
 ros2 run moveit_setup_assistant moveit_setup_assistant
 ```
-
