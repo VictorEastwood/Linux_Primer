@@ -59,10 +59,6 @@ gazebo_ros2_control
 ```shell
 sudo apt install ros-$ROS_DISTRO-gazebo-ros2-control
 ```
-moveit2相关组件
-```shell
-sudo apt-get install ros-$ROS_DISTRO-moveit
-```
 
 一键安装全部：
 ```shell
@@ -206,6 +202,7 @@ ros2 launch package_name launch_file_name
 ### moveit2
 
 官方文档链接：[moveit2](https://moveit.picknik.ai/humble/index.html)
+
 
 如果你在虚拟机环境输入以下命令出现了错误：
 ```shell
