@@ -66,7 +66,7 @@ sudo apt-get install ros-$ROS_DISTRO-moveit
 
 一键安装全部：
 ```shell
-sudo apt install ros-$ROS_DISTRO-tf-transformations ros-$ROS_DISTRO-rqt-* ros-$ROS_DISTRO-robot-state-publisher ros-$ROS_DISTRO-joint-state-publisher ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-gazebo-* ros-$ROS_DISTRO-ros2-control ros-$ROS_DISTRO-ros2-controllers ros-$ROS_DISTRO-gazebo-ros2-control ros-$ROS_DISTRO-moveit -y
+sudo apt install ros-$ROS_DISTRO-tf-transformations ros-$ROS_DISTRO-rqt-* ros-$ROS_DISTRO-robot-state-publisher ros-$ROS_DISTRO-joint-state-publisher ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-gazebo-* ros-$ROS_DISTRO-ros2-control ros-$ROS_DISTRO-ros2-controllers -y
 ```
 ## 3.ROS2常用命令
 
@@ -116,7 +116,8 @@ ros2 run package_name executable_name
 ros2 launch package_name launch_file_name
 ```
 ---
-## ROS2 Control
+## 4.ROS2常用工具
+### ROS2 Control
 以下是 **ROS 2 control** 每个命令的示例代码块，供你参考使用：  
 
  1. `list_controller_types`
@@ -202,8 +203,34 @@ ros2 launch package_name launch_file_name
     ros2 control switch_controllers -h
     ```
 
-## moveit2
+### moveit2
+
+官方文档链接：[moveit2](https://moveit.picknik.ai/humble/index.html)
+
+如果你在虚拟机环境输入以下命令出现了错误：
+```shell
+sudo rosdep init
+```
+可以尝试以下命令：
+进入/etc文件夹
+```shell
+cd /etc
+```
+修改hosts文件
+```shell
+sudo gedit hosts
+```
+在末尾添加以下内容
+```shell
+151.101.84.133 raw.githubusercontent.com
+```
 启动moveit2 assistant
 ```shell
 ros2 run moveit_setup_assistant moveit_setup_assistant
 ```
+moveit2 源码编译
+```shell
+cd ~/ws_moveit2
+colcon build --mixin release --parallel-workers 1
+```
+
