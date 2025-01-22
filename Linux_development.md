@@ -1,15 +1,28 @@
-# Linux 开发入门
+# Linux 基础开发环境搭建
 ---
-基础安装：
+## 1.安装系统常用工具
 ```bash
-sudo apt install build-essential cmake git
+sudo apt install -y wget curl git tree vim
+```
+## 2.C++开发环境搭建
+基础安装c++
+```bash
+sudo apt install -y build-essential cmake cmake-qt-gui cmake-curses-gui 
 ```
 检测是否安装成功：
 ```bash
+git --version
 g++ --version
 cmake --version
-git --version
+ccmake --version
 ```
----
-##  ROS2
-[ROS2传送门](Linux_ros2.md)
+## 3.Python开发环境搭建
+基础安装python
+```bash
+sudo apt -y install python3 python3-pip python3-venv python-is-python3
+```
+检测是否安装成功：
+```bash
+python3 --version
+pip3 --version
+```

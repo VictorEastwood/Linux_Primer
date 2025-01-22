@@ -2,7 +2,9 @@
 
 --- 
 
-## 1.安装ros2
+## 1.环境配置
+### 1.1 安装ROS2
+
 输入以下命令安装ros2
 ```shell
 wget http://fishros.com/install -O fishros && . fishros
@@ -13,7 +15,7 @@ echo $ROS_DISTRO
 ```
 若返回值为`foxy` `humble` `jazzy`等则安装成功
 
-## 2.安装ROS开发必要的工具
+### 1.2安装ROS开发必要的工具
 transformers3d
 ```shell    
 sudo apt install ros-$ROS_DISTRO-tf-transformations
