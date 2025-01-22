@@ -15,56 +15,124 @@ echo $ROS_DISTRO
 ```
 若返回值为`foxy` `humble` `jazzy`等则安装成功
 
-### 1.2安装ROS开发必要的工具
-transformers3d
-```shell    
-sudo apt install ros-$ROS_DISTRO-tf-transformations
-sudo pip3 install transforms3d
-```
-rqt所有组件
+### 1.2 安装ROS开发必要的工具
 ```shell
-sudo apt install ros-$ROS_DISTRO-rqt-*
+sudo apt install -y ros-$ROS_DISTRO-tf-transformations ros-$ROS_DISTRO-rqt-* ros-$ROS_DISTRO-robot-state-publisher ros-$ROS_DISTRO-joint-state-publisher ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-gazebo-* ros-$ROS_DISTRO-ros2-control ros-$ROS_DISTRO-ros2-controllers 
 ```
-机器人信息发布
-```shell
-sudo apt install ros-$ROS_DISTRO-robot-state-publisher
-```
-关节信息发布
-```shell
-sudo apt install ros-$ROS_DISTRO-joint-state-publisher
-```
-xacro
-```shell
-sudo apt install ros-$ROS_DISTRO-xacro
-```
-gazebo
-```shell
-sudo apt install ros-$ROS_DISTRO-gazebo-*
-```
-gazebo_ros
-```shell
-sudo apt install ros-$ROS_DISTRO-gazebo-ros-*
-```
-(需要在每次打开终端时运行以下命令)
+GAZEBO运行需要在每次打开终端时运行以下命令
 ```shell 
 source /usr/share/gazebo/setup.bash
 ```
-ros2_control
-```shell
-sudo apt install ros-$ROS_DISTRO-ros2-control
+
+### 1.3 安装KDL库
+首先，确保你已经安装了必要的依赖库：
 ```
-ros2_controllers
-```shell
-sudo apt install ros-$ROS_DISTRO-ros2-controllers
+sudo apt-get update
+sudo apt-get install ros-humble-kdl-parser
 ```
-gazebo_ros2_control
-```shell
-sudo apt install ros-$ROS_DISTRO-gazebo-ros2-control
+克隆KDL库
+```
+git clone https://github.com/orocos/orocos_kinematics_dynamics.git
+```
+编译安装
+```bash
+cd orocos_kinematics_dynamics
+cd orocos_kdl
+mkdir build
+cd build
+```
+使用cmake-curses-gui配置编译选项
+```bash
+ccmake ..
 ```
 
-一键安装全部：
-```shell
-sudo apt install ros-$ROS_DISTRO-tf-transformations ros-$ROS_DISTRO-rqt-* ros-$ROS_DISTRO-robot-state-publisher ros-$ROS_DISTRO-joint-state-publisher ros-$ROS_DISTRO-xacro ros-$ROS_DISTRO-gazebo-* ros-$ROS_DISTRO-ros2-control ros-$ROS_DISTRO-ros2-controllers -y
+按下c键 你会看到如下界面通过上下键选择你需要的选项，通过enter键修改BUILD_MODELS和ENABLE_EXAMPLES为ON，然后按下c键保存退出
+
+编译
+```bash
+make
+```
+安装
+```bash
+sudo make install
+```
+### 1.4 安装moveit2
+官方文档链接：[moveit2](https://moveit.picknik.ai/humble/index.html)
+安装rosdep来安装系统依赖项：
+```bash
+sudo apt install python3-rosdep
+```
+初始化rosdep
+```bash
+sudo rosdep init
+```
+如果初始化rosdep出现了错误：可以尝试以下方法：
+进入/etc文件夹
+```bash
+cd /etc
+```
+修改hosts文件
+```bash
+sudo gedit hosts
+```
+在末尾添加以下内容
+```bash
+151.101.84.133 raw.githubusercontent.com
+```
+更新rosdep
+```bash
+rosdep update
+```
+```bash
+sudo apt update
+sudo apt dist-upgrade
+```
+使用mixin安装Colcon ROS 2 构建系统：
+```bash
+sudo apt install python3-colcon-common-extensions
+sudo apt install python3-colcon-mixin
+colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml
+colcon mixin update default
+```
+安装vcstool：
+```bash
+sudo apt install python3-vcstool
+```
+设置colcon工作区:
+```bash
+mkdir -p ~/ws_moveit2/src
+```
+进入 Colcon 工作区并拉取 MoveIt 教程源：
+```bash
+cd ~/ws_moveit2/src
+git clone --branch humble https://github.com/ros-planning/moveit2_tutorials
+```
+下载 MoveIt 其余部分的源代码：
+```bash
+vcs import < moveit2_tutorials/moveit2_tutorials.repos
+```
+安装 MoveIt 及其所有依赖项：
+```bash
+sudo apt update && rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+```
+编译 MoveIt：
+```bash
+cd ~/ws_moveit2
+colcon build --mixin release --parallel-workers 1
+```
+获取 MoveIt 2 的环境变量：
+```bash
+source ~/ws_moveit2/install/setup.bash
+```
+添加环境变量到 ~/.bashrc 文件：
+```bash
+echo 'source ~/ws_moveit2/install/setup.bash' >> ~/.bashrc
+```
+切换到 Cyclone DDS 作为 ROS 2 的默认通信中间件：
+```bash
+sudo apt install ros-humble-rmw-cyclonedds-cpp
+# You may want to add this to ~/.bashrc to source it automatically
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 ```
 ## 3.ROS2常用命令
 
@@ -202,34 +270,9 @@ ros2 launch package_name launch_file_name
     ```
 
 ### moveit2
-
 官方文档链接：[moveit2](https://moveit.picknik.ai/humble/index.html)
-
-
-如果你在虚拟机环境输入以下命令出现了错误：
-```shell
-sudo rosdep init
-```
-可以尝试以下命令：
-进入/etc文件夹
-```shell
-cd /etc
-```
-修改hosts文件
-```shell
-sudo gedit hosts
-```
-在末尾添加以下内容
-```shell
-151.101.84.133 raw.githubusercontent.com
-```
 启动moveit2 assistant
 ```shell
 ros2 run moveit_setup_assistant moveit_setup_assistant
-```
-moveit2 源码编译
-```shell
-cd ~/ws_moveit2
-colcon build --mixin release --parallel-workers 1
 ```
 
